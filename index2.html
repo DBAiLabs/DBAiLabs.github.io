@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURIS — Handcrafted Timepieces</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   AURIS — Design System
+   Palette: deep charcoal / warm ivory / champagne gold
+   Typography: Cormorant Garamond (display) + Jost (body)
+   Motif: precise geometry, generous white space, gold accents
+───────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0e0c;
+  --charcoal:#1c1a16;
+  --stone:#3a3630;
+  --muted:#8a8278;
+  --silver:#c8c0b4;
+  --ivory:#f7f3ed;
+  --cream:#ede7de;
+  --warm:#d4c9b8;
+  --gold:#c9a96e;
+  --gold-light:#e2c994;
+  --gold-dark:#9a7440;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',sans-serif;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-in-out:cubic-bezier(.45,0,.55,1);
+}
+
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+  cursor:none;
+}
+::selection{background:var(--gold);color:var(--ink)}
+
+/* ── CUSTOM CURSOR ─────────────────────────── */
+#cur{
+  position:fixed;top:0;left:0;z-index:9999;
+  pointer-events:none;transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+}
+#cur-dot{
+  width:7px;height:7px;background:#fff;border-radius:50%;
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  transition:width .25s var(--ease-out),height .25s var(--ease-out);
+}
+#cur-ring{
+  width:34px;height:34px;border:1px solid rgba(255,255,255,.45);
+  border-radius:50%;position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  transition:width .3s var(--ease-out),height .3s var(--ease-out),opacity .3s;
+}
+body.hovering #cur-dot{width:14px;height:14px}
+body.hovering #cur-ring{width:56px;height:56px;opacity:.35}
+
+/* ── NAV ───────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:32px 64px;
+  transition:padding .5s var(--ease-out),background .5s,box-shadow .5s;
+}
+nav.compact{
+  padding:18px 64px;
+  background:rgba(247,243,237,.94);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 1px 0 var(--cream);
+}
+.nav-logo{
+  font-family:var(--serif);font-size:1.45rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:11px;
+}
+.logo-glyph{
+  width:26px;height:26px;position:relative;flex-shrink:0;
+}
+.logo-glyph svg{width:100%;height:100%;overflow:visible}
+.nav-links{
+  display:flex;align-items:center;gap:44px;list-style:none;
+}
+.nav-links a{
+  font-size:.72rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--stone);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-btn{
+  font-family:var(--sans);font-size:.7rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:10px 26px;
+  background:var(--ink);color:var(--ivory);
+  border:1px solid var(--ink);cursor:none;
+  transition:all .28s var(--ease-out);
+}
+.nav-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+
+/* ── HERO ──────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--charcoal);
+  position:relative;overflow:hidden;
+}
+/* grain overlay */
+.hero::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='.03'/%3E%3C/svg%3E");
+  pointer-events:none;opacity:.6;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:160px 80px 80px 80px;
+  position:relative;z-index:2;
+}
+.hero-eyebrow{
+  font-size:.68rem;font-weight:400;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:36px;
+  display:flex;align-items:center;gap:16px;
+}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+h1.hero-title{
+  font-family:var(--serif);font-weight:300;line-height:.92;
+  font-size:clamp(3.8rem,7vw,7.5rem);
+  letter-spacing:-.02em;
+  color:var(--ivory);
+  margin-bottom:40px;
+}
+h1.hero-title em{font-style:italic;color:var(--gold-light)}
+.hero-sub{
+  font-size:.88rem;font-weight:300;line-height:1.9;
+  color:rgba(247,243,237,.45);
+  max-width:380px;margin-bottom:56px;
+}
+.hero-actions{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--sans);font-size:.72rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:16px 38px;
+  background:var(--gold);color:var(--ink);
+  border:1px solid var(--gold);cursor:none;
+  transition:all .3s var(--ease-out);text-decoration:none;
+}
+.btn-gold:hover{background:var(--gold-light);border-color:var(--gold-light)}
+.btn-gold svg{transition:transform .25s var(--ease-out)}
+.btn-gold:hover svg{transform:translateX(5px)}
+.btn-text{
+  font-size:.72rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(247,243,237,.5);text-decoration:none;
+  border-bottom:1px solid rgba(247,243,237,.2);padding-bottom:3px;
+  transition:all .2s;cursor:none;background:none;border-left:none;border-right:none;border-top:none;
+}
+.btn-text:hover{color:var(--ivory);border-bottom-color:rgba(247,243,237,.5)}
+.hero-scroll{
+  position:absolute;bottom:44px;left:80px;z-index:2;
+  display:flex;align-items:center;gap:14px;
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(247,243,237,.25);
+}
+.scroll-bar{
+  width:1px;height:52px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:scrollbar 2.5s ease-in-out infinite;
+}
+@keyframes scrollbar{0%,100%{transform:scaleY(.6) translateY(10px);opacity:.4}50%{transform:scaleY(1) translateY(0);opacity:1}}
+/* hero right — animated watch face */
+.hero-right{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;
+  padding:120px 60px;
+}
+.hero-watch-wrap{
+  position:relative;width:360px;height:360px;
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+.hw-ring{
+  position:absolute;inset:-40px;border-radius:50%;
+  border:1px solid rgba(201,169,110,.12);
+  animation:hspin 80s linear infinite;
+}
+.hw-ring::before{
+  content:'';position:absolute;inset:30px;border-radius:50%;
+  border:1px solid rgba(201,169,110,.07);
+}
+@keyframes hspin{to{transform:rotate(360deg)}}
+/* tick marks on ring */
+.hw-ring-ticks{
+  position:absolute;inset:-40px;border-radius:50%;
+  animation:hspin 80s linear infinite;
+}
+.hw-ring-tick{
+  position:absolute;width:2px;height:8px;background:rgba(201,169,110,.3);
+  left:50%;top:0;transform-origin:1px 230px;margin-left:-1px;
+}
+.hero-watch-svg{width:100%;height:100%;filter:drop-shadow(0 24px 64px rgba(0,0,0,.6))}
+/* Animated hands */
+.hand-hour{transform-origin:130px 140px;animation:hour 21600s linear infinite}
+.hand-min{transform-origin:130px 140px;animation:minute 3600s linear infinite}
+.hand-sec{transform-origin:130px 145px;animation:second 60s steps(60,end) infinite}
+@keyframes hour{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes minute{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes second{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+/* hero stats */
+.hero-stats{
+  position:absolute;bottom:44px;right:64px;z-index:2;
+  display:flex;gap:44px;
+}
+.hstat-n{
+  font-family:var(--serif);font-size:2.6rem;font-weight:300;
+  line-height:1;color:var(--ivory);margin-bottom:4px;
+}
+.hstat-n sup{font-size:1rem;color:var(--gold);vertical-align:super}
+.hstat-l{
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(247,243,237,.3);
+}
+
+/* ── SECTION COMMON ────────────────────────── */
+.section{padding:140px 80px}
+.section-inner{max-width:1280px;margin:0 auto}
+.s-label{
+  font-size:.67rem;font-weight:400;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;
+  display:flex;align-items:center;gap:14px;
+}
+.s-label::before{content:'';width:22px;height:1px;background:var(--gold)}
+.s-heading{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.6rem,4vw,4.4rem);
+  line-height:1.05;letter-spacing:-.02em;
+  color:var(--ink);
+}
+.s-heading em{font-style:italic;color:var(--gold-dark)}
+
+/* ── COLLECTION ────────────────────────────── */
+#collection{background:var(--ivory)}
+.col-top{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:80px;
+  gap:40px;
+}
+.col-intro{
+  font-size:.88rem;font-weight:300;line-height:1.9;
+  color:var(--muted);max-width:300px;
+}
+/* Collection grid — masonry feel */
+.col-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:auto;
+  gap:3px;
+}
+.wcard{
+  background:var(--cream);
+  position:relative;overflow:hidden;
+  cursor:none;
+  transition:transform .5s var(--ease-out);
+}
+.wcard:hover{transform:translateY(-8px);z-index:2}
+.wcard:hover .wcard-overlay{opacity:1}
+.wcard.span2{grid-column:span 2}
+.wcard-img{
+  aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.wcard.span2 .wcard-img{aspect-ratio:2/1}
+.wcard-bg{
+  position:absolute;inset:0;
+  transition:transform .6s var(--ease-out);
+}
+.wcard:hover .wcard-bg{transform:scale(1.04)}
+.wcard-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(15,14,12,.6) 0%,transparent 50%);
+  opacity:0;transition:opacity .4s;
+  display:flex;align-items:flex-end;padding:28px;
+  z-index:2;
+}
+.wcard-quick{
+  font-size:.7rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ivory);
+  border-bottom:1px solid rgba(247,243,237,.4);padding-bottom:2px;
+}
+.wcard-badge{
+  position:absolute;top:20px;left:20px;z-index:3;
+  font-size:.62rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--gold);color:var(--ink);padding:5px 14px;
+}
+.wcard-info{padding:28px 32px 36px}
+.wcard-series{
+  font-size:.65rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;
+}
+.wcard-name{
+  font-family:var(--serif);font-size:1.55rem;font-weight:400;
+  color:var(--ink);margin-bottom:8px;
+}
+.wcard-desc{
+  font-size:.82rem;font-weight:300;line-height:1.8;
+  color:var(--muted);margin-bottom:24px;
+}
+.wcard-foot{display:flex;align-items:center;justify-content:space-between}
+.wcard-price{
+  font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--ink);
+}
+.wcard-price small{font-size:.72rem;font-family:var(--sans);color:var(--silver);margin-left:4px}
+.btn-preorder{
+  font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  padding:9px 22px;border:1px solid rgba(201,169,110,.45);
+  background:transparent;color:var(--gold);cursor:none;
+  transition:all .25s var(--ease-out);
+}
+.btn-preorder:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+
+/* ── CRAFT SECTION ─────────────────────────── */
+#craft{
+  background:var(--charcoal);
+  position:relative;overflow:hidden;
+}
+#craft::before{
+  content:'';position:absolute;
+  right:-200px;top:50%;transform:translateY(-50%);
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,169,110,.04) 0%,transparent 70%);
+  pointer-events:none;
+}
+#craft .s-heading{color:var(--ivory)}
+.craft-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:100px;align-items:center;margin-top:80px;
+}
+.craft-text{}
+.craft-items{margin-top:56px;display:flex;flex-direction:column;gap:44px}
+.craft-item{
+  display:flex;gap:28px;align-items:flex-start;
+  padding-bottom:44px;border-bottom:1px solid rgba(247,243,237,.06);
+}
+.craft-item:last-child{border-bottom:none;padding-bottom:0}
+.ci-num{
+  font-family:var(--serif);font-size:3rem;font-weight:300;
+  color:rgba(201,169,110,.18);line-height:1;flex-shrink:0;
+  width:56px;text-align:right;
+}
+.ci-title{
+  font-family:var(--serif);font-size:1.35rem;font-weight:400;
+  color:var(--ivory);margin-bottom:10px;
+}
+.ci-body{font-size:.83rem;font-weight:300;line-height:1.9;color:rgba(247,243,237,.45)}
+/* animated dial art */
+.craft-dial{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.dial-art{
+  width:360px;height:360px;position:relative;
+  animation:float 7s ease-in-out infinite;
+}
+.da-outer{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(201,169,110,.2);
+}
+.da-mid{
+  position:absolute;inset:28px;border-radius:50%;
+  border:1px solid rgba(201,169,110,.1);
+  animation:hspin 50s linear infinite reverse;
+}
+.da-inner{
+  position:absolute;inset:60px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#2a2720,#1c1a16);
+  border:1px solid rgba(201,169,110,.15);
+  display:flex;align-items:center;justify-content:center;
+}
+.da-text{
+  font-family:var(--serif);font-size:.9rem;font-weight:300;
+  letter-spacing:.15em;color:rgba(201,169,110,.5);text-align:center;
+  line-height:1.6;
+}
+/* Radial tick marks */
+.da-ticks{position:absolute;inset:0;border-radius:50%}
+
+/* ── CONFIGURATOR ─────────────────────────── */
+#configure{background:var(--cream)}
+.config-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:start;
+  margin-top:80px;
+}
+/* sticky preview */
+.config-preview{
+  position:sticky;top:110px;
+  display:flex;flex-direction:column;align-items:center;gap:32px;
+}
+.cp-watch{
+  width:300px;height:300px;
+  position:relative;display:flex;align-items:center;justify-content:center;
+  filter:drop-shadow(0 20px 48px rgba(15,14,12,.18));
+  transition:filter .4s;
+}
+.cp-watch:hover{filter:drop-shadow(0 28px 64px rgba(15,14,12,.28))}
+.cp-ring{
+  position:absolute;inset:-20px;border-radius:50%;
+  border:1px solid rgba(201,169,110,.2);
+  animation:hspin 40s linear infinite;
+}
+#cpSvg{width:260px;height:260px;border-radius:50%;transition:all .35s var(--ease-out)}
+.cp-info{text-align:center;width:100%}
+.cp-name-display{
+  font-family:var(--serif);font-size:1.6rem;font-weight:400;
+  color:var(--ink);margin-bottom:4px;
+}
+.cp-price-display{
+  font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--gold-dark);
+}
+.cp-price-display sup{font-size:1rem;vertical-align:super}
+.cp-tagline{
+  font-size:.72rem;font-weight:300;letter-spacing:.12em;
+  color:var(--muted);margin-top:6px;
+}
+
+/* steps */
+.config-steps{display:flex;flex-direction:column;gap:0}
+.cs{
+  border-bottom:1px solid rgba(201,169,110,.15);
+  padding:36px 0;
+}
+.cs:first-child{padding-top:0}
+.cs:last-child{border-bottom:none}
+.cs-head{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
+.cs-step{
+  font-size:.63rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);
+}
+.cs-title{
+  font-family:var(--serif);font-size:1.25rem;font-weight:400;color:var(--ink);
+}
+.cs-sel{
+  font-size:.78rem;font-weight:300;color:var(--muted);margin-left:auto;
+}
+.opts{display:flex;flex-wrap:wrap;gap:9px}
+.opt{
+  font-size:.75rem;font-weight:400;letter-spacing:.08em;
+  padding:9px 18px;
+  background:var(--ivory);border:1px solid rgba(201,169,110,.2);
+  color:var(--stone);cursor:none;transition:all .22s;
+}
+.opt:hover{border-color:rgba(201,169,110,.6);color:var(--ink)}
+.opt.on{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+/* swatches */
+.swatches{display:flex;gap:12px;flex-wrap:wrap}
+.sw{
+  width:38px;height:38px;border-radius:50%;cursor:none;
+  border:3px solid transparent;
+  transition:transform .2s,border-color .2s;
+  position:relative;
+}
+.sw:hover{transform:scale(1.12)}
+.sw.on{border-color:var(--gold-dark);box-shadow:0 0 0 2px var(--cream)}
+/* engraving */
+.engrave-input{
+  width:100%;background:var(--ivory);
+  border:1px solid rgba(201,169,110,.25);
+  color:var(--ink);font-family:var(--sans);font-size:.88rem;font-weight:300;
+  padding:13px 18px;outline:none;transition:border-color .2s;
+}
+.engrave-input:focus{border-color:var(--gold)}
+.engrave-input::placeholder{color:var(--silver)}
+.engrave-hint{font-size:.72rem;color:var(--silver);margin-top:6px}
+/* summary card */
+.config-summary{
+  background:var(--ivory);
+  border:1px solid rgba(201,169,110,.2);
+  padding:28px 32px;margin-top:0;
+}
+.csm-title{
+  font-size:.65rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+}
+.csm-rows{display:flex;flex-direction:column;gap:12px}
+.csm-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.82rem;
+}
+.csm-key{color:var(--muted)}
+.csm-val{font-weight:400;color:var(--ink)}
+.csm-divider{height:1px;background:rgba(201,169,110,.15);margin:16px 0}
+.csm-total{display:flex;justify-content:space-between;align-items:baseline}
+.csm-total-label{
+  font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)
+}
+.csm-total-price{
+  font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--ink);
+}
+.btn-configure-order{
+  width:100%;margin-top:20px;
+  font-family:var(--sans);font-size:.72rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:16px;background:var(--ink);color:var(--ivory);
+  border:1px solid var(--ink);cursor:none;
+  transition:all .28s var(--ease-out);
+}
+.btn-configure-order:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+
+/* ── WAITLIST ──────────────────────────────── */
+#waitlist{
+  background:var(--ink);
+  padding:140px 80px;
+  position:relative;overflow:hidden;
+}
+.wl-ghost{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:clamp(100px,18vw,200px);
+  font-weight:300;letter-spacing:-.04em;
+  color:rgba(201,169,110,.03);
+  user-select:none;pointer-events:none;
+  white-space:nowrap;
+}
+.wl-inner{
+  position:relative;z-index:2;
+  max-width:600px;margin:0 auto;text-align:center;
+}
+.wl-label{
+  font-size:.67rem;font-weight:400;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:28px;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+}
+.wl-label::before,.wl-label::after{content:'';width:22px;height:1px;background:var(--gold)}
+.wl-title{
+  font-family:var(--serif);font-weight:300;line-height:.95;
+  font-size:clamp(3rem,6vw,5.5rem);
+  letter-spacing:-.02em;
+  color:var(--ivory);margin-bottom:24px;
+}
+.wl-title em{font-style:italic;color:var(--gold-light)}
+.wl-body{
+  font-size:.88rem;font-weight:300;line-height:1.9;
+  color:rgba(247,243,237,.45);margin-bottom:56px;
+}
+.wl-form{display:flex;gap:0;max-width:460px;margin:0 auto 28px}
+.wl-inp{
+  flex:1;
+  background:rgba(247,243,237,.06);
+  border:1px solid rgba(201,169,110,.25);border-right:none;
+  color:var(--ivory);font-family:var(--sans);font-size:.88rem;font-weight:300;
+  padding:14px 20px;outline:none;
+  transition:border-color .2s;
+}
+.wl-inp::placeholder{color:rgba(247,243,237,.25)}
+.wl-inp:focus{border-color:rgba(201,169,110,.6)}
+.wl-sub{
+  font-family:var(--sans);font-size:.7rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  background:var(--gold);color:var(--ink);
+  border:1px solid var(--gold);padding:0 28px;
+  cursor:none;transition:all .25s;
+}
+.wl-sub:hover{background:var(--gold-light)}
+.wl-note{font-size:.78rem;color:rgba(247,243,237,.3)}
+.wl-note strong{color:var(--gold);font-weight:400}
+.wl-success{
+  display:none;align-items:center;justify-content:center;gap:10px;
+  font-size:.85rem;color:var(--gold);margin-top:16px;
+}
+.wl-success.show{display:flex}
+
+/* ── FOOTER ────────────────────────────────── */
+footer{
+  background:var(--charcoal);
+  padding:72px 80px 48px;
+}
+.ft-grid{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;
+  gap:64px;margin-bottom:64px;
+}
+.ft-brand{}
+.ft-logo{
+  font-family:var(--serif);font-size:1.3rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ivory);margin-bottom:16px;
+}
+.ft-tag{font-size:.8rem;font-weight:300;line-height:1.8;color:rgba(247,243,237,.35);max-width:200px}
+.ft-col-title{
+  font-size:.65rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:22px;
+}
+.ft-links{list-style:none;display:flex;flex-direction:column;gap:14px}
+.ft-links a{
+  font-size:.83rem;font-weight:300;color:rgba(247,243,237,.35);
+  text-decoration:none;transition:color .2s;
+}
+.ft-links a:hover{color:var(--ivory)}
+.ft-bottom{
+  max-width:1280px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:28px;border-top:1px solid rgba(247,243,237,.07);
+  font-size:.72rem;font-weight:300;color:rgba(247,243,237,.25);
+}
+
+/* ── MODAL ─────────────────────────────────── */
+.overlay{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(15,14,12,.82);
+  align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.overlay.open{display:flex}
+.modal{
+  background:var(--ivory);
+  width:540px;max-width:95vw;max-height:92vh;
+  overflow-y:auto;position:relative;
+}
+.modal::-webkit-scrollbar{width:3px}
+.modal::-webkit-scrollbar-thumb{background:var(--warm)}
+.modal-hdr{
+  padding:40px 44px 28px;
+  border-bottom:1px solid var(--cream);
+}
+.modal-eyebrow{
+  font-size:.67rem;font-weight:400;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;
+}
+.modal-title{
+  font-family:var(--serif);font-size:1.7rem;font-weight:400;color:var(--ink);
+}
+.modal-close{
+  position:absolute;top:18px;right:18px;
+  background:none;border:none;cursor:none;
+  font-size:1.1rem;color:var(--silver);
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  transition:color .2s;
+}
+.modal-close:hover{color:var(--ink)}
+.modal-body{padding:28px 44px 44px;display:flex;flex-direction:column;gap:18px}
+.mf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mf{display:flex;flex-direction:column;gap:7px}
+.mf.full{grid-column:span 2}
+.mf-label{
+  font-size:.67rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)
+}
+.mf-input{
+  background:var(--cream);border:1px solid rgba(201,169,110,.2);
+  color:var(--ink);font-family:var(--sans);font-size:.88rem;font-weight:300;
+  padding:12px 16px;outline:none;
+  transition:border-color .2s;-webkit-appearance:none;
+}
+.mf-input:focus{border-color:var(--gold)}
+.mf-input::placeholder{color:var(--silver)}
+select.mf-input{cursor:none}
+.mf-note{
+  font-size:.78rem;font-weight:300;line-height:1.7;
+  color:var(--muted);padding:14px 18px;
+  background:var(--cream);border-left:2px solid var(--gold);
+}
+.btn-modal-submit{
+  width:100%;padding:16px;margin-top:6px;
+  font-family:var(--sans);font-size:.72rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  background:var(--ink);color:var(--ivory);border:none;cursor:none;
+  transition:all .28s var(--ease-out);
+}
+.btn-modal-submit:hover{background:var(--gold);color:var(--ink)}
+.modal-success{
+  display:none;text-align:center;padding:56px 44px;
+}
+.modal-success.show{display:block}
+.ms-check{
+  font-family:var(--serif);font-size:3rem;color:var(--gold);
+  margin-bottom:20px;
+}
+.ms-title{
+  font-family:var(--serif);font-size:1.8rem;font-weight:400;
+  color:var(--ink);margin-bottom:12px;
+}
+.ms-body{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.8;max-width:340px;margin:0 auto 28px}
+.btn-ms-close{
+  font-family:var(--sans);font-size:.7rem;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  background:none;border:1px solid var(--warm);
+  padding:11px 28px;cursor:none;color:var(--stone);
+  transition:all .2s;
+}
+.btn-ms-close:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── SCROLL REVEAL ─────────────────────────── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── MOBILE ─────────────────────────────────── */
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  nav{padding:24px 40px}
+  .section{padding:100px 40px}
+  .col-grid{grid-template-columns:1fr 1fr}
+  .wcard.span2{grid-column:span 2}
+  .craft-layout{grid-template-columns:1fr}
+  .craft-dial{display:none}
+  .config-layout{grid-template-columns:1fr}
+  .config-preview{position:static}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:48px}
+}
+@media(max-width:768px){
+  nav{padding:20px 24px}
+  .nav-links,.nav-btn{display:none}
+  .hero-left{padding:120px 28px 72px}
+  .section{padding:80px 24px}
+  #waitlist{padding:80px 24px}
+  footer{padding:56px 24px 36px}
+  .hero-scroll{left:28px}
+  .hero-stats{right:24px;gap:24px}
+  .col-top{flex-direction:column}
+  .col-grid{grid-template-columns:1fr}
+  .wcard.span2{grid-column:span 1}
+  .wl-form{flex-direction:column}
+  .wl-inp{border-right:1px solid rgba(201,169,110,.25)}
+  .wl-sub{padding:14px}
+  .ft-grid{grid-template-columns:1fr}
+  .ft-bottom{flex-direction:column;gap:10px;text-align:center}
+  .mf-row{grid-template-columns:1fr}
+  .mf.full{grid-column:span 1}
+  .modal-hdr{padding:28px 24px 20px}
+  .modal-body{padding:20px 24px 32px}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cur"><div id="cur-dot"></div><div id="cur-ring"></div></div>
+
+<!-- ── NAV ── -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <div class="logo-glyph">
+      <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="13" cy="13" r="12" stroke="#c9a96e" stroke-width="1"/>
+        <line x1="13" y1="3" x2="13" y2="7" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="13" y1="19" x2="13" y2="23" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="13" x2="7" y2="13" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="19" y1="13" x2="23" y2="13" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="13" y1="13" x2="13" y2="8" stroke="#1c1a16" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="13" y1="13" x2="17" y2="11" stroke="#1c1a16" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="13" cy="13" r="1.5" fill="#c9a96e"/>
+      </svg>
+    </div>
+    AURIS
+  </a>
+  <ul class="nav-links">
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#craft">The Craft</a></li>
+    <li><a href="#configure">Configure</a></li>
+    <li><a href="#waitlist">Waitlist</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-btn" onclick="openOrder()">Pre-Order</button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Handcrafted Timepieces — Est. 2025</div>
+    <h1 class="hero-title">
+      The art<br>
+      of measured<br>
+      <em>precision.</em>
+    </h1>
+    <p class="hero-sub">
+      Every AURIS watch is conceived, assembled, and finished by a single watchmaker. Not a team — one person. Forty hours of craft in your hands.
+    </p>
+    <div class="hero-actions">
+      <a href="#collection" class="btn-gold">
+        Explore Collection
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#configure" class="btn-text">Configure yours</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-watch-wrap">
+      <div class="hw-ring">
+        <div class="hw-ring-ticks" id="ringTicks"></div>
+      </div>
+      <!-- Animated hero watch SVG -->
+      <svg class="hero-watch-svg" viewBox="0 0 260 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Strap top -->
+        <rect x="98" y="0" width="64" height="46" rx="8" fill="#1a1816"/>
+        <rect x="106" y="6" width="48" height="34" rx="6" fill="#141210" stroke="rgba(201,169,110,.15)" stroke-width=".5"/>
+        <!-- Case -->
+        <circle cx="130" cy="160" r="110" fill="#f0e8dc" stroke="#c9a96e" stroke-width="1.2"/>
+        <circle cx="130" cy="160" r="100" fill="#ede4d4" stroke="rgba(201,169,110,.3)" stroke-width=".6"/>
+        <!-- Dial -->
+        <circle cx="130" cy="160" r="94" fill="#f7f1e8"/>
+        <!-- Hour indices — bold at 12,3,6,9 -->
+        <rect x="127.5" y="70" width="5" height="16" rx="1" fill="#1c1a16"/>
+        <rect x="127.5" y="254" width="5" height="16" rx="1" fill="#1c1a16"/>
+        <rect x="40" y="157.5" width="16" height="5" rx="1" fill="#1c1a16"/>
+        <rect x="204" y="157.5" width="16" height="5" rx="1" fill="#1c1a16"/>
+        <!-- Minor indices -->
+        <g stroke="#9a8a78" stroke-width="1" stroke-linecap="round">
+          <line x1="177" y1="76" x2="171" y2="86"/><line x1="214" y1="113" x2="204" y2="119"/>
+          <line x1="224" y1="207" x2="214" y2="201"/><line x1="83" y1="244" x2="89" y2="234"/>
+          <line x1="36" y1="207" x2="46" y2="201"/><line x1="46" y1="113" x2="56" y2="119"/>
+          <line x1="83" y1="76" x2="89" y2="86"/><line x1="177" y1="244" x2="171" y2="234"/>
+        </g>
+        <!-- Brand text -->
+        <text x="130" y="122" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="11" letter-spacing="5" fill="#3a3630" font-weight="400">AURIS</text>
+        <text x="130" y="200" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="7" letter-spacing="2.5" fill="#9a9288">SWISS MADE</text>
+        <!-- Date window -->
+        <rect x="154" y="153" width="20" height="14" rx="2" fill="white" stroke="rgba(201,169,110,.4)" stroke-width=".8"/>
+        <text x="164" y="163" text-anchor="middle" font-family="Jost,sans-serif" font-size="7" fill="#3a3630">08</text>
+        <!-- Hands -->
+        <g class="hand-hour">
+          <rect x="127" y="90" width="6" height="72" rx="3" fill="#1c1a16"/>
+        </g>
+        <g class="hand-min">
+          <rect x="128.5" y="76" width="3" height="86" rx="1.5" fill="#1c1a16"/>
+        </g>
+        <g class="hand-sec">
+          <line x1="130" y1="110" x2="130" y2="195" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="130" cy="112" r="3" fill="#c9a96e"/>
+        </g>
+        <!-- Center -->
+        <circle cx="130" cy="160" r="4.5" fill="#c9a96e"/>
+        <circle cx="130" cy="160" r="2" fill="#1c1a16"/>
+        <!-- Crown -->
+        <rect x="240" y="152" width="16" height="16" rx="3" fill="#d4c9b8" stroke="#c9a96e" stroke-width=".8"/>
+        <!-- Strap bottom -->
+        <rect x="98" y="270" width="64" height="10" rx="5" fill="#1a1816"/>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-bar"></div>Scroll to discover</div>
+  <div class="hero-stats">
+    <div>
+      <div class="hstat-n">40<sup>h</sup></div>
+      <div class="hstat-l">Per piece</div>
+    </div>
+    <div>
+      <div class="hstat-n">3</div>
+      <div class="hstat-l">References</div>
+    </div>
+    <div>
+      <div class="hstat-n">∞</div>
+      <div class="hstat-l">Combinations</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COLLECTION ── -->
+<section class="section" id="collection">
+  <div class="section-inner">
+    <div class="col-top reveal">
+      <div>
+        <div class="s-label">The Collection</div>
+        <h2 class="s-heading">Three references.<br><em>Infinite character.</em></h2>
+      </div>
+      <p class="col-intro">Each reference is produced in strictly limited numbers. Once your piece enters the queue, it cannot be replicated — it can only be surpassed by your next one.</p>
+    </div>
+    <div class="col-grid">
+
+      <!-- Watch 1 — Lumis (featured, span 2) -->
+      <div class="wcard span2 reveal">
+        <span class="wcard-badge">Most Sought</span>
+        <div class="wcard-img" style="background:linear-gradient(135deg,#e8e0d4 0%,#d4c8b4 100%)">
+          <div class="wcard-bg" style="background:linear-gradient(135deg,#e8e0d4 0%,#d4c8b4 100%)"></div>
+          <div class="wcard-overlay"><span class="wcard-quick">View Details →</span></div>
+          <svg viewBox="0 0 300 300" style="width:260px;height:260px;flex-shrink:0" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="150" r="140" fill="#f7f1e8" stroke="#c9a96e" stroke-width="1.2"/>
+            <circle cx="150" cy="150" r="130" fill="#f2ead8" stroke="rgba(201,169,110,.3)" stroke-width=".6"/>
+            <rect x="147" y="16" width="6" height="18" rx="2" fill="#1c1a16"/>
+            <rect x="147" y="266" width="6" height="18" rx="2" fill="#1c1a16"/>
+            <rect x="16" y="147" width="18" height="6" rx="2" fill="#1c1a16"/>
+            <rect x="266" y="147" width="18" height="6" rx="2" fill="#1c1a16"/>
+            <g stroke="rgba(154,138,120,.6)" stroke-width="1" stroke-linecap="round">
+              <line x1="201" y1="25" x2="195" y2="35"/><line x1="246" y1="100" x2="236" y2="106"/>
+              <line x1="274" y1="200" x2="264" y2="194"/><line x1="100" y1="274" x2="106" y2="264"/>
+              <line x1="25" y1="200" x2="35" y2="194"/><line x1="54" y1="100" x2="64" y2="106"/>
+              <line x1="100" y1="25" x2="106" y2="35"/><line x1="201" y1="274" x2="195" y2="264"/>
+            </g>
+            <text x="150" y="108" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="12" letter-spacing="5" fill="#3a3630">AURIS</text>
+            <text x="150" y="128" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="8" letter-spacing="2" fill="#9a9288">LUMIS</text>
+            <text x="150" y="194" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="7" letter-spacing="2" fill="#9a9288">SWISS MADE</text>
+            <rect x="164" y="144" width="22" height="15" rx="2" fill="white" stroke="rgba(201,169,110,.4)" stroke-width=".8"/>
+            <text x="175" y="154" text-anchor="middle" font-family="Jost,sans-serif" font-size="8" fill="#3a3630">08</text>
+            <rect x="146.5" y="64" width="7" height="88" rx="3.5" fill="#1c1a16"/>
+            <rect x="148.5" y="52" width="3" height="100" rx="1.5" fill="#1c1a16"/>
+            <line x1="150" y1="110" x2="150" y2="210" stroke="#c9a96e" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="150" cy="112" r="3.5" fill="#c9a96e"/>
+            <circle cx="150" cy="150" r="5" fill="#c9a96e"/>
+            <circle cx="150" cy="150" r="2.5" fill="#1c1a16"/>
+            <rect x="289" y="143" width="17" height="17" rx="3" fill="#e0d4c4" stroke="#c9a96e" stroke-width=".8"/>
+          </svg>
+        </div>
+        <div class="wcard-info">
+          <div class="wcard-series">Reference I</div>
+          <div class="wcard-name">The Lumis</div>
+          <div class="wcard-desc">Sunray ivory dial, applied polished hour markers. Swiss ETA 2824 movement regulated to ±2 sec/day. 40mm stainless steel case, sapphire crystal, 50m water resistance.</div>
+          <div class="wcard-foot">
+            <div class="wcard-price">€ 1,850 <small>/ piece</small></div>
+            <button class="btn-preorder" onclick="openOrder('Lumis — Reference I','option1')">Pre-Order →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Watch 2 — Noctis -->
+      <div class="wcard reveal d1">
+        <div class="wcard-img" style="background:linear-gradient(145deg,#1a1816 0%,#0f0e0c 100%)">
+          <div class="wcard-bg" style="background:linear-gradient(145deg,#1a1816,#0f0e0c)"></div>
+          <div class="wcard-overlay"><span class="wcard-quick">View Details →</span></div>
+          <svg viewBox="0 0 260 260" style="width:220px;height:220px" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="130" cy="130" r="124" fill="#0f0e0c" stroke="#c9a96e" stroke-width="1"/>
+            <circle cx="130" cy="130" r="114" fill="#151310" stroke="rgba(201,169,110,.2)" stroke-width=".6"/>
+            <g fill="#c9a96e">
+              <rect x="127" y="12" width="6" height="14" rx="2"/>
+              <rect x="127" y="234" width="6" height="14" rx="2"/>
+              <rect x="12" y="127" width="14" height="6" rx="2"/>
+              <rect x="234" y="127" width="14" height="6" rx="2"/>
+            </g>
+            <g stroke="rgba(201,169,110,.35)" stroke-width=".8" stroke-linecap="round">
+              <line x1="178" y1="20" x2="173" y2="29"/><line x1="211" y1="82" x2="202" y2="87"/>
+              <line x1="230" y1="178" x2="221" y2="173"/><line x1="82" y1="240" x2="87" y2="231"/>
+              <line x1="20" y1="178" x2="29" y2="173"/><line x1="49" y1="82" x2="58" y2="87"/>
+              <line x1="82" y1="20" x2="87" y2="29"/><line x1="178" y1="240" x2="173" y2="231"/>
+            </g>
+            <text x="130" y="95" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="10" letter-spacing="4" fill="rgba(201,169,110,.8)">AURIS</text>
+            <text x="130" y="112" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="7" letter-spacing="2" fill="rgba(201,169,110,.4)">NOCTIS</text>
+            <text x="130" y="170" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" letter-spacing="2" fill="rgba(201,169,110,.3)">SWISS MADE</text>
+            <rect x="142" y="124" width="18" height="12" rx="2" fill="#1c1a16" stroke="rgba(201,169,110,.3)" stroke-width=".8"/>
+            <text x="151" y="133" text-anchor="middle" font-family="Jost,sans-serif" font-size="7" fill="rgba(201,169,110,.7)">08</text>
+            <rect x="127.5" y="54" width="5" height="76" rx="2.5" fill="rgba(247,243,237,.9)"/>
+            <rect x="128.5" y="42" width="3" height="90" rx="1.5" fill="rgba(247,243,237,.8)"/>
+            <line x1="130" y1="96" x2="130" y2="180" stroke="#c9a96e" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="130" cy="98" r="3" fill="#c9a96e"/>
+            <circle cx="130" cy="130" r="4.5" fill="#c9a96e"/>
+            <circle cx="130" cy="130" r="2" fill="#0f0e0c"/>
+            <rect x="254" y="124" width="14" height="12" rx="2.5" fill="#1a1816" stroke="#c9a96e" stroke-width=".6"/>
+          </svg>
+        </div>
+        <div class="wcard-info">
+          <div class="wcard-series">Reference II</div>
+          <div class="wcard-name">The Noctis</div>
+          <div class="wcard-desc">Matte black PVD case, luminous gilt indices. For those who measure the night. Limited to 40 pieces per year.</div>
+          <div class="wcard-foot">
+            <div class="wcard-price">€ 2,200 <small>/ piece</small></div>
+            <button class="btn-preorder" onclick="openOrder('Noctis — Reference II','option2')">Pre-Order →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Watch 3 — Solais -->
+      <div class="wcard reveal d2">
+        <div class="wcard-img" style="background:linear-gradient(135deg,#d4b88a 0%,#c4a470 100%)">
+          <div class="wcard-bg" style="background:linear-gradient(135deg,#d4b88a,#c4a470)"></div>
+          <div class="wcard-overlay"><span class="wcard-quick">View Details →</span></div>
+          <svg viewBox="0 0 260 260" style="width:220px;height:220px" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="130" cy="130" r="124" fill="#f2e8d8" stroke="#8a6440" stroke-width="1.5"/>
+            <circle cx="130" cy="130" r="114" fill="#ede0c8" stroke="rgba(138,100,64,.3)" stroke-width=".6"/>
+            <g fill="#5a3a1a">
+              <rect x="127" y="12" width="6" height="18" rx="2"/>
+              <rect x="127" y="230" width="6" height="18" rx="2"/>
+              <rect x="12" y="127" width="18" height="6" rx="2"/>
+              <rect x="230" y="127" width="18" height="6" rx="2"/>
+            </g>
+            <g stroke="rgba(90,58,26,.4)" stroke-width="1.2" stroke-linecap="round">
+              <line x1="178" y1="20" x2="172" y2="31"/><line x1="211" y1="82" x2="200" y2="88"/>
+              <line x1="230" y1="178" x2="219" y2="172"/><line x1="82" y1="240" x2="88" y2="229"/>
+              <line x1="20" y1="178" x2="31" y2="172"/><line x1="49" y1="82" x2="60" y2="88"/>
+              <line x1="82" y1="20" x2="88" y2="31"/><line x1="178" y1="240" x2="172" y2="229"/>
+            </g>
+            <text x="130" y="95" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="10" letter-spacing="4" fill="#3a2210">AURIS</text>
+            <text x="130" y="112" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="7" letter-spacing="2" fill="#8a6440">SOLAIS</text>
+            <text x="130" y="172" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" letter-spacing="2" fill="rgba(90,58,26,.5)">SWISS MADE</text>
+            <rect x="127.5" y="52" width="5" height="78" rx="2.5" fill="#2a1608"/>
+            <rect x="128.5" y="40" width="3" height="92" rx="1.5" fill="#2a1608"/>
+            <line x1="130" y1="96" x2="130" y2="180" stroke="#8a6440" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="130" cy="98" r="3" fill="#8a6440"/>
+            <circle cx="130" cy="130" r="5" fill="#8a6440"/>
+            <circle cx="130" cy="130" r="2.5" fill="#f2e8d8"/>
+            <rect x="254" y="124" width="14" height="12" rx="2.5" fill="#d4b88a" stroke="#8a6440" stroke-width=".8"/>
+          </svg>
+        </div>
+        <div class="wcard-info">
+          <div class="wcard-series">Reference III</div>
+          <div class="wcard-name">The Solais</div>
+          <div class="wcard-desc">Champagne dial, rose gold-tone applied indices. A distillation of warmth and precision. Our most personal reference.</div>
+          <div class="wcard-foot">
+            <div class="wcard-price">€ 2,650 <small>/ piece</small></div>
+            <button class="btn-preorder" onclick="openOrder('Solais — Reference III','option3')">Pre-Order →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CRAFT ── -->
+<section class="section" id="craft">
+  <div class="section-inner">
+    <div class="craft-layout">
+      <div class="craft-text reveal">
+        <div class="s-label" style="color:var(--gold)">The Craft</div>
+        <h2 class="s-heading" style="color:var(--ivory)">Made the<br><em>slow way.</em><br>On purpose.</h2>
+        <div class="craft-items">
+          <div class="craft-item">
+            <div class="ci-num">01</div>
+            <div>
+              <div class="ci-title">Movement first, always</div>
+              <div class="ci-body">Every piece begins with a Swiss ETA calibre serviced, regulated, and certified to ±2 seconds per day — before the case is ever touched. The movement is the watch. Everything else is clothing.</div>
+            </div>
+          </div>
+          <div class="craft-item">
+            <div class="ci-num">02</div>
+            <div>
+              <div class="ci-title">Surfaces finished by hand</div>
+              <div class="ci-body">The alternation between brushed and polished surfaces on a case is where a watchmaker's skill is most legible. We spend eight hours on finishing alone — no machines, no shortcuts.</div>
+            </div>
+          </div>
+          <div class="craft-item">
+            <div class="ci-num">03</div>
+            <div>
+              <div class="ci-title">One name on every caseback</div>
+              <div class="ci-body">From movement service to final timing test, your watch is touched by one pair of hands. That craftsman's initials are engraved on the caseback. Because accountability is also a form of craft.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="craft-dial reveal d2">
+        <div class="dial-art">
+          <div class="da-outer"></div>
+          <div class="da-mid"></div>
+          <div class="da-inner" id="daInner">
+            <div class="da-text">Hand<br>Assembled</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONFIGURATOR ── -->
+<section class="section" id="configure" style="background:var(--cream)">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="s-label">Custom Order</div>
+      <h2 class="s-heading">Design <em>your</em><br>exact watch.</h2>
+    </div>
+    <div class="config-layout" style="margin-top:72px">
+
+      <!-- Preview -->
+      <div class="config-preview">
+        <div class="cp-watch">
+          <div class="cp-ring"></div>
+          <svg id="cpSvg" viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer case -->
+            <circle cx="130" cy="130" r="126" id="cfCase" fill="#f7f1e8" stroke="#c9a96e" stroke-width="1.2"/>
+            <circle cx="130" cy="130" r="116" stroke="rgba(201,169,110,.3)" stroke-width=".6" id="cfDial" fill="#f2ead8"/>
+            <!-- Major indices -->
+            <g id="cfMajor" fill="#1c1a16">
+              <rect x="127" y="10" width="6" height="15" rx="2"/>
+              <rect x="127" y="235" width="6" height="15" rx="2"/>
+              <rect x="10" y="127" width="15" height="6" rx="2"/>
+              <rect x="235" y="127" width="15" height="6" rx="2"/>
+            </g>
+            <!-- Minor indices -->
+            <g id="cfMinor" stroke="rgba(154,138,120,.5)" stroke-width=".8" stroke-linecap="round">
+              <line x1="176" y1="18" x2="171" y2="27"/><line x1="212" y1="78" x2="203" y2="84"/>
+              <line x1="242" y1="176" x2="233" y2="171"/><line x1="84" y1="242" x2="90" y2="233"/>
+              <line x1="18" y1="176" x2="27" y2="171"/><line x1="48" y1="78" x2="57" y2="84"/>
+              <line x1="84" y1="18" x2="90" y2="27"/><line x1="176" y1="242" x2="171" y2="233"/>
+            </g>
+            <!-- Brand -->
+            <text x="130" y="96" text-anchor="middle" id="cfBrand" font-family="Cormorant Garamond,serif" font-size="10" letter-spacing="4.5" fill="#3a3630">AURIS</text>
+            <text x="130" y="168" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="6.5" letter-spacing="2" fill="#9a9288">CUSTOM</text>
+            <!-- Hands -->
+            <rect id="cfHHand" x="127.5" y="60" width="5" height="72" rx="2.5" fill="#1c1a16"/>
+            <rect id="cfMHand" x="128.5" y="46" width="3" height="86" rx="1.5" fill="#1c1a16"/>
+            <line id="cfSHand" x1="130" y1="100" x2="130" y2="185" stroke="#c9a96e" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="130" cy="102" r="3" fill="#c9a96e"/>
+            <!-- Center -->
+            <circle cx="130" cy="130" r="4.5" id="cfCenter" fill="#c9a96e"/>
+            <circle cx="130" cy="130" r="2" fill="#1c1a16"/>
+            <!-- Crown -->
+            <rect x="254" y="124" width="15" height="12" rx="2.5" id="cfCrown" fill="#d4c9b8" stroke="#c9a96e" stroke-width=".7"/>
+          </svg>
+        </div>
+        <div class="cp-info">
+          <div class="cp-name-display" id="cpName">Your Custom Watch</div>
+          <div class="cp-price-display"><sup>€</sup><span id="cpPrice">1,850</span></div>
+          <div class="cp-tagline">estimated price · subject to confirmation</div>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div class="config-steps">
+
+        <!-- Step 1: Case -->
+        <div class="cs reveal">
+          <div class="cs-head">
+            <span class="cs-step">Step 01</span>
+            <span class="cs-title">Case Material</span>
+            <span class="cs-sel" id="sel-case">Stainless Steel</span>
+          </div>
+          <div class="opts" id="opts-case">
+            <button class="opt on" onclick="pick('case',this,'Stainless Steel',0,'#f7f1e8','#c9a96e')">Stainless Steel</button>
+            <button class="opt" onclick="pick('case',this,'PVD Black',300,'#0f0e0c','#c9a96e')">PVD Black <small>+€300</small></button>
+            <button class="opt" onclick="pick('case',this,'Rose Gold PVD',550,'#d4a870','#b87840')">Rose Gold PVD <small>+€550</small></button>
+            <button class="opt" onclick="pick('case',this,'Solid 18k Gold',1800,'#e8c87a','#b89830')">Solid 18k Gold <small>+€1,800</small></button>
+          </div>
+        </div>
+
+        <!-- Step 2: Dial -->
+        <div class="cs reveal d1">
+          <div class="cs-head">
+            <span class="cs-step">Step 02</span>
+            <span class="cs-title">Dial Colour</span>
+            <span class="cs-sel" id="sel-dial">Ivory</span>
+          </div>
+          <div class="swatches" id="opts-dial">
+            <div class="sw on" style="background:#f7f1e8;border:1px solid #c9a96e" title="Ivory" onclick="pickDial(this,'Ivory','#f7f1e8','#f2ead8','#3a3630')"></div>
+            <div class="sw" style="background:#0f0e0c" title="Matte Black" onclick="pickDial(this,'Matte Black','#0f0e0c','#151310','rgba(247,243,237,.85)')"></div>
+            <div class="sw" style="background:#1e2d40" title="Midnight Blue" onclick="pickDial(this,'Midnight Blue','#1e2d40','#243548','rgba(201,169,110,.9)')"></div>
+            <div class="sw" style="background:#2a1a0e" title="Cognac" onclick="pickDial(this,'Cognac','#2a1a0e','#341f10','rgba(212,184,138,.9)')"></div>
+            <div class="sw" style="background:#1c2e1c" title="Forest" onclick="pickDial(this,'Forest','#1c2e1c','#223423','rgba(201,169,110,.9)')"></div>
+            <div class="sw" style="background:#e0d4c4;border:1px solid #c9a96e" title="Champagne" onclick="pickDial(this,'Champagne','#e0d4c4','#d8cbba','#3a2a18')"></div>
+            <div class="sw" style="background:#c0b4a8;border:1px solid #a89880" title="Silver" onclick="pickDial(this,'Silver-White','#f8f6f4','#f0ece6','#3a3630')"></div>
+          </div>
+        </div>
+
+        <!-- Step 3: Strap -->
+        <div class="cs reveal d2">
+          <div class="cs-head">
+            <span class="cs-step">Step 03</span>
+            <span class="cs-title">Strap</span>
+            <span class="cs-sel" id="sel-strap">Black Leather</span>
+          </div>
+          <div class="opts" id="opts-strap">
+            <button class="opt on" onclick="pick('strap',this,'Black Leather',0)">Black Leather</button>
+            <button class="opt" onclick="pick('strap',this,'Tan Leather',0)">Tan Leather</button>
+            <button class="opt" onclick="pick('strap',this,'Burgundy Leather',0)">Burgundy Leather</button>
+            <button class="opt" onclick="pick('strap',this,'Steel Bracelet',200)">Steel Bracelet <small>+€200</small></button>
+            <button class="opt" onclick="pick('strap',this,'Gold Bracelet',600)">Gold Bracelet <small>+€600</small></button>
+            <button class="opt" onclick="pick('strap',this,'NATO Nylon',0)">NATO Nylon</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Hands -->
+        <div class="cs reveal d3">
+          <div class="cs-head">
+            <span class="cs-step">Step 04</span>
+            <span class="cs-title">Hand Style</span>
+            <span class="cs-sel" id="sel-hands">Dauphine</span>
+          </div>
+          <div class="opts" id="opts-hands">
+            <button class="opt on" onclick="pick('hands',this,'Dauphine',0)">Dauphine</button>
+            <button class="opt" onclick="pick('hands',this,'Baton',0)">Baton</button>
+            <button class="opt" onclick="pick('hands',this,'Alpha',0)">Alpha</button>
+            <button class="opt" onclick="pick('hands',this,'Leaf',80)">Leaf <small>+€80</small></button>
+            <button class="opt" onclick="pick('hands',this,'Skeleton',320)">Skeleton <small>+€320</small></button>
+          </div>
+        </div>
+
+        <!-- Step 5: Indices -->
+        <div class="cs reveal">
+          <div class="cs-head">
+            <span class="cs-step">Step 05</span>
+            <span class="cs-title">Index Type</span>
+            <span class="cs-sel" id="sel-index">Applied Bars</span>
+          </div>
+          <div class="opts" id="opts-index">
+            <button class="opt on" onclick="pick('index',this,'Applied Bars',0)">Applied Bars</button>
+            <button class="opt" onclick="pick('index',this,'Roman Numerals',0)">Roman Numerals</button>
+            <button class="opt" onclick="pick('index',this,'Printed Indices',−80)">Printed <small>−€80</small></button>
+            <button class="opt" onclick="pick('index',this,'Diamond Set',480)">Diamond Set <small>+€480</small></button>
+          </div>
+        </div>
+
+        <!-- Step 6: Engraving -->
+        <div class="cs reveal">
+          <div class="cs-head">
+            <span class="cs-step">Step 06</span>
+            <span class="cs-title">Caseback Engraving</span>
+          </div>
+          <input type="text" class="engrave-input" id="engInput" maxlength="30"
+            placeholder="A personal message or date  (max 30 characters)"
+            oninput="updateEngrave(this.value)">
+          <div class="engrave-hint">Engraved by hand. Included in the price.</div>
+        </div>
+
+        <!-- Summary -->
+        <div class="config-summary reveal">
+          <div class="csm-title">Your Configuration</div>
+          <div class="csm-rows">
+            <div class="csm-row"><span class="csm-key">Base price</span><span class="csm-val">€ 1,850</span></div>
+            <div class="csm-row"><span class="csm-key">Case</span><span class="csm-val" id="smCase">Stainless Steel</span></div>
+            <div class="csm-row"><span class="csm-key">Dial</span><span class="csm-val" id="smDial">Ivory</span></div>
+            <div class="csm-row"><span class="csm-key">Strap</span><span class="csm-val" id="smStrap">Black Leather</span></div>
+            <div class="csm-row"><span class="csm-key">Hands</span><span class="csm-val" id="smHands">Dauphine</span></div>
+            <div class="csm-row"><span class="csm-key">Indices</span><span class="csm-val" id="smIndex">Applied Bars</span></div>
+            <div class="csm-row" id="engRow" style="display:none"><span class="csm-key">Engraving</span><span class="csm-val" id="smEng"></span></div>
+          </div>
+          <div class="csm-divider"></div>
+          <div class="csm-total">
+            <span class="csm-total-label">Total Estimate</span>
+            <span class="csm-total-price" id="smTotal">€ 1,850</span>
+          </div>
+          <button class="btn-configure-order" onclick="openOrderCustom()">Order This Configuration →</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WAITLIST ── -->
+<section id="waitlist">
+  <div class="wl-ghost">AURIS</div>
+  <div class="wl-inner">
+    <div class="wl-label">Early Access</div>
+    <h2 class="wl-title">First to<br><em>hold time.</em></h2>
+    <p class="wl-body">Join the waitlist for priority access to new references, early-bird pricing on limited editions, and the first call on any cancelled commissions.</p>
+    <form class="wl-form" onsubmit="joinList(event)">
+      <input type="email" class="wl-inp" id="wlEmail" placeholder="your@email.com" required>
+      <button type="submit" class="wl-sub">Join</button>
+    </form>
+    <div class="wl-note" id="wlNote"><strong id="wlCount">62</strong> people already waiting.</div>
+    <div class="wl-success" id="wlOK">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 5" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      You're on the list — we'll be in touch.
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <div class="ft-logo">AURIS</div>
+      <p class="ft-tag">Handcrafted timepieces. One watchmaker. One watch. Yours.</p>
+    </div>
+    <div>
+      <div class="ft-col-title">Collection</div>
+      <ul class="ft-links">
+        <li><a href="#collection">The Lumis</a></li>
+        <li><a href="#collection">The Noctis</a></li>
+        <li><a href="#collection">The Solais</a></li>
+        <li><a href="#configure">Custom Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-col-title">Studio</div>
+      <ul class="ft-links">
+        <li><a href="#craft">Our Process</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-col-title">Contact</div>
+      <ul class="ft-links">
+        <li><a href="mailto:studio@auris.watch">studio@auris.watch</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Shipping & Returns</a></li>
+        <li><a href="#">Care Guide</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2025 AURIS Timepieces. All rights reserved.</span>
+    <span>Every piece is made by hand.</span>
+  </div>
+</footer>
+
+<!-- ── PRE-ORDER MODAL ── -->
+<div class="overlay" id="modalOverlay" onclick="if(event.target===this)closeOrder()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeOrder()">✕</button>
+    <div id="modalForm">
+      <div class="modal-hdr">
+        <div class="modal-eyebrow">Pre-Order Request</div>
+        <div class="modal-title" id="modalRef">The Lumis — Reference I</div>
+      </div>
+      <div class="modal-body">
+        <div class="mf-row">
+          <div class="mf">
+            <label class="mf-label">First Name</label>
+            <input type="text" class="mf-input" placeholder="Jean" id="mFirst">
+          </div>
+          <div class="mf">
+            <label class="mf-label">Last Name</label>
+            <input type="text" class="mf-input" placeholder="Dupont" id="mLast">
+          </div>
+        </div>
+        <div class="mf full">
+          <label class="mf-label">Email</label>
+          <input type="email" class="mf-input" placeholder="jean@example.com" id="mEmail">
+        </div>
+        <div class="mf full">
+          <label class="mf-label">Phone (optional)</label>
+          <input type="tel" class="mf-input" placeholder="+31 6 …" id="mPhone">
+        </div>
+        <div class="mf full">
+          <label class="mf-label">Reference</label>
+          <select class="mf-input" id="mWatch">
+            <option value="option1">The Lumis — Reference I — €1,850</option>
+            <option value="option2">The Noctis — Reference II — €2,200</option>
+            <option value="option3">The Solais — Reference III — €2,650</option>
+            <option value="custom">Custom Configuration</option>
+          </select>
+        </div>
+        <div class="mf full" id="mConfigRow" style="display:none">
+          <label class="mf-label">Your Configuration</label>
+          <input type="text" class="mf-input" id="mConfigSummary" readonly>
+        </div>
+        <div class="mf full">
+          <label class="mf-label">Notes (optional)</label>
+          <input type="text" class="mf-input" placeholder="Anything you'd like us to know…" id="mNotes">
+        </div>
+        <div class="mf-note">
+          No payment is taken now. Submitting this form secures your queue position. We'll contact you within 48 hours to confirm all details and arrange a 25% deposit to begin production.
+        </div>
+        <button class="btn-modal-submit" onclick="submitOrder()">Submit Pre-Order →</button>
+      </div>
+    </div>
+    <div class="modal-success" id="modalSuccess">
+      <div class="ms-check">✓</div>
+      <div class="ms-title">Request Received</div>
+      <p class="ms-body">Thank you. We'll reach out within 48 hours with production timeline and deposit details.</p>
+      <button class="btn-ms-close" onclick="closeOrder()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+// ── CURSOR ──────────────────────────────────────────
+const curEl=document.getElementById('cur');
+let cx=window.innerWidth/2,cy=window.innerHeight/2,rx=cx,ry=cy;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;});
+(function loop(){
+  rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;
+  curEl.style.transform=`translate(${cx}px,${cy}px)`;
+  document.getElementById('cur-ring').style.transform=`translate(${rx-17}px,${ry-17}px)`;
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.wcard,.sw,.opt,.cs-swatch,[onclick]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+});
+
+// ── NAV COMPACT ─────────────────────────────────────
+const mainNav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>mainNav.classList.toggle('compact',scrollY>70),{passive:true});
+
+// ── SCROLL REVEAL ───────────────────────────────────
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ── RING TICK MARKS ─────────────────────────────────
+const rt=document.getElementById('ringTicks');
+if(rt){
+  for(let i=0;i<60;i++){
+    const d=document.createElement('div');
+    d.className='hw-ring-tick';
+    d.style.transform=`rotate(${i*6}deg)`;
+    d.style.height=i%5===0?'10px':'5px';
+    d.style.opacity=i%5===0?'0.5':'0.2';
+    rt.appendChild(d);
+  }
+}
+
+// ── CONFIGURATOR STATE ──────────────────────────────
+const BASE=1850;
+const state={
+  case:{label:'Stainless Steel',extra:0},
+  dial:{label:'Ivory',fill:'#f2ead8',outer:'#f7f1e8',text:'#3a3630'},
+  strap:{label:'Black Leather',extra:0},
+  hands:{label:'Dauphine',extra:0},
+  index:{label:'Applied Bars',extra:0},
+  engrave:''
+};
+
+function total(){
+  return BASE+state.case.extra+state.strap.extra+state.hands.extra+
+    (state.index.extra>0?state.index.extra:0);
+}
+
+function fmtN(n){return n.toLocaleString('de-DE');}
+
+function refreshSummary(){
+  document.getElementById('smCase').textContent=state.case.label;
+  document.getElementById('smDial').textContent=state.dial.label;
+  document.getElementById('smStrap').textContent=state.strap.label;
+  document.getElementById('smHands').textContent=state.hands.label;
+  document.getElementById('smIndex').textContent=state.index.label;
+  const t=total();
+  document.getElementById('smTotal').textContent='€ '+fmtN(t);
+  document.getElementById('cpPrice').textContent=fmtN(t);
+  const er=document.getElementById('engRow');
+  if(state.engrave){
+    er.style.display='flex';
+    document.getElementById('smEng').textContent='"'+state.engrave+'"';
+  }else{
+    er.style.display='none';
+  }
+  // Update preview name
+  document.getElementById('cpName').textContent=
+    'Custom · '+state.case.label.split(' ')[0]+' · '+state.dial.label;
+}
+
+function pick(group,btn,label,extra,caseColor,strokeColor){
+  document.querySelectorAll('#opts-'+group+' .opt').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  state[group]={label,extra:isNaN(extra)?0:extra};
+  document.getElementById('sel-'+group).textContent=label;
+  // Update case colour in preview
+  if(group==='case'&&caseColor){
+    document.getElementById('cfCase').setAttribute('fill',caseColor);
+    document.getElementById('cfCrown').setAttribute('fill',caseColor==='#0f0e0c'?'#1a1816':caseColor==='#e8c87a'?'#d4b45a':'#d4c9b8');
+    document.getElementById('cfMajor').setAttribute('fill',
+      caseColor==='#0f0e0c'?'#c9a96e':caseColor==='#e8c87a'?'#5a3a1a':'#1c1a16');
+  }
+  refreshSummary();
+}
+
+function pickDial(el,label,outerFill,dialFill,textFill){
+  document.querySelectorAll('#opts-dial .sw').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+  state.dial={label,fill:dialFill,outer:outerFill,text:textFill};
+  document.getElementById('cfCase').setAttribute('fill',outerFill);
+  document.getElementById('cfDial').setAttribute('fill',dialFill);
+  document.getElementById('cfBrand').setAttribute('fill',textFill);
+  // Adjust hands for dark dials
+  const dark=['#0f0e0c','#1e2d40','#2a1a0e','#1c2e1c'].includes(outerFill);
+  const hc=dark?'rgba(247,243,237,.9)':'#1c1a16';
+  document.getElementById('cfHHand').setAttribute('fill',hc);
+  document.getElementById('cfMHand').setAttribute('fill',hc);
+  document.getElementById('sel-dial').textContent=label;
+  refreshSummary();
+}
+
+function updateEngrave(val){
+  state.engrave=val.trim();
+  refreshSummary();
+}
+
+// ── MODAL ────────────────────────────────────────────
+function openOrder(refName,refValue){
+  const ov=document.getElementById('modalOverlay');
+  const ref=document.getElementById('mWatch');
+  if(refName)document.getElementById('modalRef').textContent=refName;
+  if(refValue){
+    for(let i=0;i<ref.options.length;i++){
+      if(ref.options[i].value===refValue){ref.selectedIndex=i;break;}
+    }
+  }
+  document.getElementById('mConfigRow').style.display='none';
+  ov.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function openOrderCustom(){
+  openOrder('Your Custom Configuration','custom');
+  document.getElementById('mConfigRow').style.display='flex';
+  const s=`Case: ${state.case.label} · Dial: ${state.dial.label} · ${state.strap.label} · ${state.hands.label} hands · ${state.index.label} · Total: €${fmtN(total())}`;
+  document.getElementById('mConfigSummary').value=s;
+}
+
+function closeOrder(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  setTimeout(()=>{
+    document.getElementById('modalForm').style.display='';
+    document.getElementById('modalSuccess').classList.remove('show');
+  },300);
+}
+
+function submitOrder(){
+  // Validate minimal fields
+  const email=document.getElementById('mEmail').value.trim();
+  if(!email){document.getElementById('mEmail').focus();return;}
+  // In production: POST to Formspree, EmailJS, or your backend
+  document.getElementById('modalForm').style.display='none';
+  document.getElementById('modalSuccess').classList.add('show');
+}
+
+// ── WAITLIST ─────────────────────────────────────────
+let wlN=62;
+function joinList(e){
+  e.preventDefault();
+  const v=document.getElementById('wlEmail').value.trim();
+  if(!v)return;
+  wlN++;
+  document.getElementById('wlCount').textContent=wlN;
+  document.getElementById('wlEmail').value='';
+  document.getElementById('wlOK').classList.add('show');
+  document.getElementById('wlNote').style.display='none';
+}
+
+// ── HERO ENTRANCE ANIMATION ──────────────────────────
+const heroL=document.querySelector('.hero-left');
+if(heroL){
+  heroL.style.opacity='0';
+  heroL.style.transform='translateY(36px)';
+  requestAnimationFrame(()=>{
+    heroL.style.transition='opacity 1.1s cubic-bezier(.16,1,.3,1) .15s, transform 1.1s cubic-bezier(.16,1,.3,1) .15s';
+    heroL.style.opacity='1';
+    heroL.style.transform='translateY(0)';
+  });
+}
+
+// ── INIT ─────────────────────────────────────────────
+refreshSummary();
+</script>
+</body>
+</html>
